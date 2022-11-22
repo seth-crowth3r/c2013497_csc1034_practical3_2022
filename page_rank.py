@@ -81,17 +81,26 @@ def distribution_page_rank(graph, args):
     """
     node_prob = dict()
 
+    # Initialize node_prob dictionary
     num_nodes = len(graph)
     for node in graph:
         node_prob[node] = 1 / num_nodes
 
     for x in range(args.steps):
         next_prob = dict()
+
+        # Initialize next_prob dictionary
         for node in graph:
             next_prob[node] = 0
 
         for node in graph:
-            pass
+            p = node_prob[node] / len(graph[node])
+            for adj_node in graph[node]:
+                next_prob[adj_node] += p
+
+        node_prob = next_prob
+
+    return node_prob
 
 
 parser = argparse.ArgumentParser(description="Estimates page ranks from link information")
