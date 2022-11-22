@@ -58,13 +58,12 @@ def stochastic_page_rank(graph, args):
         hit_count[node] = 0
 
     for x in range(args.repeats):
-        current_node = random.choice(graph)
+        current_node = random.choice(graph.keys())
         for y in range(args.steps):
             current_node = random.choice(graph[current_node])
         hit_count[current_node] = 1 / args.repeats
 
-
-    raise RuntimeError("This function is not implemented yet.")
+    return hit_count
 
 
 def distribution_page_rank(graph, args):
