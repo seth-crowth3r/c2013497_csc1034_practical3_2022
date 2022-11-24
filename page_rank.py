@@ -34,7 +34,7 @@ def print_stats(graph):
 
     edge_count = 0
     for node_list in graph.values():
-        edge_count += len(node_list)
+        edge_count += len(node_list) # Counts number of adjacent nodes for each node and sums them to get edge count
 
     print(f"Number of edges: {edge_count}")
 
@@ -53,14 +53,18 @@ def stochastic_page_rank(graph, args):
     a random walk that starts on a random node will after n_steps end
     on each node of the given graph.
     """
+    from random import choice
+
+    # Initialize hit count of all nodes to 0
     hit_count = dict()
     for node in graph:
         hit_count[node] = 0
 
+    # Stochastic page rank algorithm
     for x in range(args.repeats):
-        current_node = random.choice(list(graph.keys()))
+        current_node = choice(list(graph.keys())) # Choose a random starting node
         for y in range(args.steps):
-            current_node = random.choice(graph[current_node])
+            current_node = choice(graph[current_node]) # Choose a random adjacent node to the current node
         hit_count[current_node] += 1 / args.repeats
 
     return hit_count
@@ -79,9 +83,8 @@ def distribution_page_rank(graph, args):
     This function estimates the Page Rank by iteratively calculating
     the probability that a random walker is currently on any node.
     """
+    # Initialize probability of reaching a node to 1 / num nodes
     node_prob = dict()
-
-    # Initialize node_prob dictionary
     num_nodes = len(graph)
     for node in graph:
         node_prob[node] = 1 / num_nodes
