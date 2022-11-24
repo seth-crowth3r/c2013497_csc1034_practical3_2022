@@ -3,7 +3,6 @@ import os
 import time
 import argparse
 from progress import Progress
-import random
 
 
 def load_graph(args):
